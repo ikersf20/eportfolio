@@ -17,14 +17,16 @@
                 <h4>Descripción: {{$resultado_aprendizaje->descripcion}}</h4>
                 <h4>Fecha de creación: {{ $resultado_aprendizaje->created_at }}</h4>
                 <h4>Fecha de actualización: {{ $resultado_aprendizaje->updated_at }}</h4>
-                <h5>Porcentaje: {{ $resultado_aprendizaje->peso_porcentaje }}</h5>
+                <h5>Porcentaje: {{ $resultado_aprendizaje->peso_porcentaje }}%</h5>
 
             </header>
             <footer>
                 <p></p>
-                <ul class="actions">    
+                <ul class="actions">
+                    @auth
                             <li><a href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getEdit'], $resultado_aprendizaje->id) }}" class="button alt">Editar Resultado de Aprendizaje</a></li>
-                            <li><a href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getIndex']) }}" class="button alt">Todas los Resultados de Aprendizaje</a></li>
+                    @endauth
+                            <li><a href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getIndex']) }}" class="button alt">Todos los Resultados de Aprendizaje</a></li>
                 </ul>
             </footer>
 

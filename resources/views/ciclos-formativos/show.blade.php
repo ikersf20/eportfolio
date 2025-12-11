@@ -23,8 +23,10 @@
             <footer>
                 <p></p>
                 <ul class="actions">
+                    @auth
                     <li><a href="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'getEdit'], ['id' => $ciclo_formativo->id]) }}"
                             class="button alt">Editar Ciclo Formativo</a></li>
+                    @endauth
                     <li><a href="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'getIndex']) }}"
                             class="button alt">Todos los Ciclos Formativos</a></li>
                 </ul>

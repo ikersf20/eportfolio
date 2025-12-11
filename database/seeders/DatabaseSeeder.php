@@ -11,6 +11,7 @@ use Database\Seeders\CiclosFormativosTableSeeder;
 use Database\Seeders\ResultadosAprendizajeTableSeeder;
 use Database\Seeders\CriteriosEvaluacionTableSeeder;
 use Illuminate\Support\Facades\Schema;
+use Database\Seeders\UsersTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CiclosFormativosTableSeeder::class);
         $this->call(ResultadosAprendizajeTableSeeder::class);
         $this->call(CriteriosEvaluacionTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
 
 
         Model::reguard();

@@ -22,7 +22,9 @@
             <footer>
                 <p></p>
                 <ul class="actions">
+                    @auth
                             <li><a href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getEdit'], $criterio_evaluacion->id) }}" class="button alt">Editar Criterio de Evaluación</a></li>
+                    @endauth
                             <li><a href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getIndex']) }}" class="button alt">Todas los Criterios de Evaluación</a></li>
                 </ul>
             </footer>
