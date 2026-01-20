@@ -12,7 +12,9 @@ use Database\Seeders\ResultadosAprendizajeTableSeeder;
 use Database\Seeders\CriteriosEvaluacionTableSeeder;
 use Illuminate\Support\Facades\Schema;
 use Database\Seeders\UsersTableSeeder;
-
+use Database\Seeders\EvidenciasTableSeeder;
+use Database\Seeders\TareaTableSeeder;
+use Database\Seeders\EvaluacionesTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -29,6 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CriteriosEvaluacionTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(EvidenciasTableSeeder::class);
+        $this->call(TareaTableSeeder::class);
+        $this->call(EvaluacionesTableSeeder::class);
 
 
         Model::reguard();
