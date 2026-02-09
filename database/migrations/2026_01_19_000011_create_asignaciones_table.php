@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('asignaciones');
         Schema::create('asignaciones', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->unsignedBigInteger('evidencia_id')->nullable();
             $table->unsignedBigInteger('revisor_id')->nullable();
             $table->unsignedBigInteger('asignado_por_id')->nullable();

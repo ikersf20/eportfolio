@@ -15,8 +15,14 @@ class FamiliaProfesionalController extends Controller
      */
     public function index(Request $request)
     {
+        $query = FamiliaProfesional::query();
+
+        if ($request->has('search')) {
+            $query->orWhere('nombre', 'like', '%' . $request->search . '%');
+        }
+
         return FamiliaProfesionalResource::collection(
-            FamiliaProfesional::orderBy($request->sort ?? 'id', $request->order ?? 'asc')
+            $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
                 ->paginate($request->per_page)
         );
     }
@@ -59,7 +65,9 @@ class FamiliaProfesionalController extends Controller
     {
         try {
             $familiaProfesional->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'FamiliaProfesional eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('comentarios');
         Schema::create('comentarios', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->unsignedBigInteger('evidencia_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->text('contenido');
