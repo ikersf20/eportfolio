@@ -18,7 +18,7 @@ class FamiliaProfesionalController extends Controller
         $query = FamiliaProfesional::query();
 
         if ($request->has('search')) {
-            $query->orWhere('nombre', 'like', '%' . $request->search . '%');
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return FamiliaProfesionalResource::collection(
@@ -32,6 +32,11 @@ class FamiliaProfesionalController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'codigo' => 'required|unique:familias_profesionales,codigo,except,id|string|max:50',
+        ]);
+
         $familiaProfesional = json_decode($request->getContent(), true);
 
         $familiaProfesional = FamiliaProfesional::create($familiaProfesional);

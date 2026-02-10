@@ -17,8 +17,8 @@ class CriterioEvaluacionController extends Controller
     {
 
         $query = CriterioEvaluacion::query()->where('resultado_aprendizaje_id', $resultadoAprendizaje->id);
-        if ($query) {
-            $query->where('codigo', 'like', '%' . $request->q . '%');
+        if ($request->has('search')) {
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return CriterioEvaluacionResource::collection(
@@ -32,7 +32,13 @@ class CriterioEvaluacionController extends Controller
      */
         public function store(Request $request, ResultadoAprendizaje $resultadoAprendizaje)
     {
+        $request->validate([
+            'codigo' => 'required|string|max:50',
+            'descripcion' => 'required|string',
+        ]);
+
         $criterioEvaluacionData = json_decode($request->getContent(), true);
+        $criterioEvaluacionData['resultado_aprendizaje_id'] = $resultadoAprendizaje->id;
 
         $criterioEvaluacion = CriterioEvaluacion::create($criterioEvaluacionData);
 
@@ -65,7 +71,9 @@ class CriterioEvaluacionController extends Controller
     {
         try {
             $criterioEvaluacion->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'Criterio de Evaluación eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

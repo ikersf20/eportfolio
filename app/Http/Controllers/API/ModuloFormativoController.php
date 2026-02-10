@@ -18,8 +18,8 @@ class ModuloFormativoController extends Controller
     {
         $query = ModuloFormativo::where('ciclo_formativo_id', $cicloFormativo->id);
 
-        if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+        if ($request->has('search')) {
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return ModuloFormativoResource::collection(
@@ -40,10 +40,21 @@ class ModuloFormativoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, CicloFormativo $cicloFormativo)
     {
-        $moduloFormativo = json_decode($request->getContent(), true);
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'codigo' => 'required|string',
+            'horas_totales' => 'required|integer|min:1',
+            'curso_escolar' => 'required|string|max:255',
+            'centro' => 'required|string|max:255',
+        ]);
 
+        $moduloFormativo = json_decode($request->getContent(), true);
+        $moduloFormativo['ciclo_formativo_id'] = $cicloFormativo->id;
+        if (!isset($moduloFormativo['docente_id'])) {
+            $moduloFormativo['docente_id'] = $request->user()->id;
+        }
         $moduloFormativo = ModuloFormativo::create($moduloFormativo);
 
         return new ModuloFormativoResource($moduloFormativo);
@@ -75,7 +86,9 @@ class ModuloFormativoController extends Controller
     {
         try {
             $moduloFormativo->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'ModuloFormativo eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
