@@ -19,10 +19,10 @@ class CicloFormativoFactory extends Factory
     {
 
         return [
-            'familia_profesional_id' => random_int(1, 10),
+
             'nombre' => fake()->word(),
             'codigo' => fake()->word(),
-            'grado' => fake()->randomElement(CicloFormativo::GRADOS),
+            'grado' => fake()->randomElement(['BÁSICA', 'G.M.', 'G.S.', 'C.E. (G.M.)', 'C.E. (G.S.)','basico', 'medio', 'superior']),
             'descripcion' => fake()->sentence(),
         ];
     }

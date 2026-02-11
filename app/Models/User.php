@@ -21,8 +21,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'nombre',
-        'apellidos',
         'password',
     ];
 
@@ -48,4 +46,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    function esAdministrador(): bool|null
+    {
+        if ($this->email) {
+            return $this->email === env('ADMIN_EMAIL');
+
+        }
+        return null;
+    }
+
 }

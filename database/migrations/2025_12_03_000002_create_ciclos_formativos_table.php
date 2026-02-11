@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('familia_profesional_id')->nullable();
             $table->string('nombre', 255);
             $table->string('codigo', 50);
-            $table->enum('grado', ['BÁSICA', 'G.M.', 'G.S.', 'C.E. (G.M.)', 'C.E. (G.S.)']);
+            $table->enum('grado', ['BÁSICA', 'G.M.', 'G.S.', 'C.E. (G.M.)', 'C.E. (G.S.)','basico', 'medio', 'superior']);
             $table->string('descripcion')->nullable();
             $table->timestamps();
             $table->foreign('familia_profesional_id')->references('id')->on('familias_profesionales');
