@@ -17,6 +17,7 @@ use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\AsignacionController;
 use App\Http\Controllers\API\ComentariosController;
 use App\Http\Controllers\API\EvaluacionController;
+use App\Http\Controllers\API\UserController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -24,6 +25,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->group(function () {
+
+    Route::apiResource('user',UserController::class)->parameters([
+        'user' => 'user',
+    ]);
+
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)->parameters([
         'familias-profesionales' => 'familiaProfesional'
     ]);
