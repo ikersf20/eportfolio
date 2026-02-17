@@ -8,6 +8,7 @@ use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
 use App\Http\Controllers\EvidenciasController;
+use App\Http\Controllers\PortfolioImportController;
 
 Route::get('/', [HomeController::class, 'getHome'])
 ->name('home');
@@ -24,6 +25,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Formulario de importación
+    Route::get('/portfolio/import', [PortfolioImportController::class, 'showImportForm'])
+        ->name('portfolio.import.index');
+
+    // Importar desde JSON Resume
+    Route::post('/portfolio/import/json-resume', [PortfolioImportController::class, 'importJsonResume'])
+        ->name('portfolio.import.json-resume');
+
+    // Importar desde GitHub
+    Route::post('/portfolio/import/github', [PortfolioImportController::class, 'importGitHub'])
+        ->name('portfolio.import.github');
 });
 
 Route::prefix('familias-profesionales')->group(function () {
@@ -32,7 +45,7 @@ Route::prefix('familias-profesionales')->group(function () {
 
     Route::get('/show/{id}', [FamiliasProfesionalesController::class, 'getShow']) -> where('id', '[0-9]+');
 
-   
+
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit/{id}', [FamiliasProfesionalesController::class, 'getEdit']) -> where('id', '[0-9]+');
         Route::post('store', [FamiliasProfesionalesController::class, 'store']);
