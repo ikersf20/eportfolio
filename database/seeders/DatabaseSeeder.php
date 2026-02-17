@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -30,6 +30,13 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         Schema::disableForeignKeyConstraints();
+
+        User::truncate();
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => config('app.admin.email', 'test@example.com'),
+            'password' => config('app.admin.password', 'password'),
+        ]);
 
         $this->call(FamiliasProfesionalesTableSeeder::class);
         $this->call(CiclosFormativosTableSeeder::class);
