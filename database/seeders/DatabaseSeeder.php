@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ComentariosTableSeeder::class);
         $this->call(AsignacionesTableSeeder::class);
         $this->call(CriterioTareasTableSeeder::class);
+        $this->call(SkillSeeder::class);
 
         Model::reguard();
 
